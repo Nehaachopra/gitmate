@@ -1,0 +1,8 @@
+allowBuilds:
+  '@prisma/engines': true
+  prisma: false
+  sharp: true
+  unrs-resolver: true
+ignoredBuiltDependencies:
+  - sharp
+  - unrs-resolver
