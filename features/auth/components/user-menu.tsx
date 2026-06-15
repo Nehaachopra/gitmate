@@ -8,7 +8,7 @@ import { DropdownMenu,DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, 
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {cn} from "@/lib/utils";
-import {ChevronDown, CreditCard, Bell, Settings, User, LogOut} from "lucide-react";
+import {User, LogOut, ChevronUp} from "lucide-react";
 
 const DEFAULT_PLAN = "Free";
 
@@ -75,17 +75,19 @@ export function UserMenu({
       <DropdownMenuTrigger
         className={cn(className)}
         render={
-          variant === "compact" ? (
+          variant === "compact" 
+          ? (
             <Button
-              variant="ghost"
-              size="icon"
               className="rounded-full"
               aria-label="Open account menu"
             />
-          ) : (
+          ) 
+          : (
             <Button
-              variant="ghost"
-              className="h-9 gap-2 px-2"
+              className="h-9 flex
+    items-center
+    justify-start
+    gap-3 px-2 "
               aria-label="Open account menu"
             />
           )
@@ -97,23 +99,23 @@ export function UserMenu({
             <span className="max-w-32 truncate text-left text-xs font-medium">
               {displayName}
             </span>
-            <User  className="size-4 text-muted-foreground" />
+            <ChevronUp className="size-5 text-muted-foreground" />
           </>
         ) : null}
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
         <DropdownMenuGroup>
           <DropdownMenuLabel className="p-0 font-normal">
-            <div className="flex items-start gap-2 px-2 py-2">
+            <div className="flex items-start gap-3 px-2 py-2">
               <UserAvatar user={user} />
-              <div className="flex min-w-0 flex-1 flex-col gap-1">
+              <div className="flex min-w-0 flex-1 flex-col gap-2 align-start">
                 <p className="truncate text-xs font-medium">{displayName}</p>
                 {user.email ? (
                   <p className="truncate text-xs text-muted-foreground">
                     {user.email}
                   </p>
                 ) : null}
-                <Badge variant="secondary" className="w-fit">
+                <Badge variant="secondary" className="w-full">
                   {plan} plan
                 </Badge>
               </div>
@@ -122,7 +124,7 @@ export function UserMenu({
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem variant="destructive" onClick={handleSignOut}>
+          <DropdownMenuItem variant="destructive" onClick={handleSignOut} className="align-center justify-center">
             <LogOut />
             Log out
           </DropdownMenuItem>
