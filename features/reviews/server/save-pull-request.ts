@@ -1,6 +1,15 @@
 import {prisma} from "@/lib/db";
 import type { PullRequestWebhookPayload } from "@/features/github/server/webhook-handler";
 
+function getAuthorLogin(
+    user: { login: string } | null
+  ): string | null {
+    if (!user) {
+      return null;
+    }
+    return user.login;
+  }
+
 export async function savePullRequest(payload: PullRequestWebhookPayload) {
   const repoFullName = payload.repository.full_name;
   const prNumber = payload.pull_request.number;
