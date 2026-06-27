@@ -51,15 +51,16 @@ export function DashboardNav() {
             return (
               <SidebarMenuItem key={item.href}>
                 <SidebarMenuButton
+                  asChild
                   isActive={active}
-                  tooltip={item.title}
-                  render={
+                  tooltip={item.title}>
+                  
                     <Link href={item.href}>
                       <Icon />
                       <span>{item.title}</span>
                     </Link>
-                  }
-                />
+                  
+                </SidebarMenuButton>
               </SidebarMenuItem>
             );
           })}

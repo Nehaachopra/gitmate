@@ -22,8 +22,22 @@ model User {
   updatedAt     DateTime  @updatedAt
   accounts      Account[]
   sessions      Session[]
+  githubInstallation     GithubInstallation?
 
   @@map("user")
+}
+
+model GithubInstallation {
+  id             String   @id @default(cuid())
+  userId         String   @unique
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  installationId Int // GitHub's numeric installation id — passed to app.getInstallationOctokit()
+  accountLogin   String?
+  accountType    String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@map("github_installation")
 }
 
 model Session {
@@ -72,3 +86,4 @@ model Verification {
   @@index([identifier])
   @@map("verification")
 }
+

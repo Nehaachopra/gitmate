@@ -31,28 +31,27 @@ export function DashboardSidebar({
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton
-              size="lg"
-              tooltip="ChaiCodeAIReview"
-              render={
-                <Link href={DASHBOARD_ROUTES.overview} className="flex items-center gap-3">
-                  <span className="flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-none bg-sidebar">
-                    <Image
-                      src="/logo.png"
-                      alt=""
-                      width={55}
-                      height={55}
-                      className="object-contain"
-                    />
+            <SidebarMenuButton size="lg" tooltip="ChaiCodeAIReview" asChild>
+              <Link
+                href={DASHBOARD_ROUTES.overview}
+                className="flex items-center gap-3"
+              >
+                <span className="flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-none bg-sidebar">
+                  <Image
+                    src="/images/logo.png"
+                    alt=""
+                    width={55}
+                    height={55}
+                    className="object-contain"
+                  />
+                </span>
+                <span className="grid flex-1 text-left leading-tight group-data-[collapsible=icon]:hidden">
+                  <span className="truncate font-medium">
+                    Git mate
                   </span>
-                  <span className="grid flex-1 text-left leading-tight group-data-[collapsible=icon]:hidden">
-                    <span className="truncate font-medium">
-                      Chai Code PR review
-                    </span>
-                  </span>
-                </Link>
-              }
-            />
+                </span>
+              </Link>
+            </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
