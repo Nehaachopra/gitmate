@@ -1,6 +1,7 @@
 import { savePullRequest } from "@/features/reviews/server/save-pull-request";
 import { getGithubApp } from "../utils/github-app";
 import { getUserIdByInstallationId } from "./installation";
+import { prisma } from "@/lib/db";
 
 const REVIEWABLE_ACTIONS = ["opened", "synchronize", "reopened"];
 const REVIEW_JOB_URL = process.env.REVIEW_JOB_URL;
@@ -79,6 +80,7 @@ export async function handleGithubWebhook(request: Request) {
   }
 
   const pullRequest = await savePullRequest(event);
+  console.log(pullRequest);
 
   return Response.json({ received: true });
 }
