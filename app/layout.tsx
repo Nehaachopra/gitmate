@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/providers/theme-provider"
 import { cn } from "@/lib/utils";
 import QueryProvider from "@/components/providers/query-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 const loraHeading = Lora({subsets:['latin'],variable:'--font-heading'});
 
@@ -43,6 +44,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             {children}
+            <Toaster/>
           </ThemeProvider>
         </QueryProvider>
       </body>

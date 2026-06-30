@@ -2,6 +2,7 @@ import { savePullRequest } from "@/features/reviews/server/save-pull-request";
 import { getGithubApp } from "../utils/github-app";
 import { getUserIdByInstallationId } from "./installation";
 import { prisma } from "@/lib/db";
+import { inngest } from "@/features/inngest/client";
 
 const REVIEWABLE_ACTIONS = ["opened", "synchronize", "reopened"];
 const REVIEW_JOB_URL = process.env.REVIEW_JOB_URL;
@@ -31,7 +32,10 @@ async function isSignatureValid(payload: string, signature: string | null) {
   return app.webhooks.verify(payload, signature);
 }
 
-function buildPullRequestJobPayload(event: PullRequestWebhookPayload, userId: string) {
+function buildPullRequestJobPayload(
+  event: PullRequestWebhookPayload,
+  userId: string,
+) {
   return {
     userId,
     installationId: event.installation.id,
@@ -45,7 +49,10 @@ function buildPullRequestJobPayload(event: PullRequestWebhookPayload, userId: st
   };
 }
 
-async function triggerReviewJob(event: PullRequestWebhookPayload, userId: string) {
+async function triggerReviewJob(
+  event: PullRequestWebhookPayload,
+  userId: string,
+) {
   if (!REVIEW_JOB_URL) {
     return;
   }
@@ -80,7 +87,13 @@ export async function handleGithubWebhook(request: Request) {
   }
 
   const pullRequest = await savePullRequest(event);
-  console.log(pullRequest);
+  
+  await inngest.send({
+    name: "github/pr.received",
+    data: {
+      pullRequestId: pullRequest.id,
+    },
+  });
 
   return Response.json({ received: true });
 }
